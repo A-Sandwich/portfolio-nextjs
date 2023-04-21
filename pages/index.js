@@ -3,13 +3,13 @@ import Layout, { siteTitle } from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import { getSortedPostsData } from '../lib/posts';
-import { getAllGameIds } from '../lib/godot-games';
+import { getSortedGameData } from '../lib/godot-games';
 import Date from '../components/date';
 import Image from 'next/image';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
-  const allGamesData = getAllGameIds();
+  const allGamesData = getSortedGameData();
   return {
     props: {
       allPostsData,
