@@ -71,7 +71,7 @@ export default function Home({ allPostsData, allGamesData }) {
         <div className={"tiles"}>
           {allGamesData.map(({ id }) => (
             <div className="tile" key={id}>
-              <Link href={`/games/${id}/index.html`}>
+              <a href={`/games/${id}/index.html`}>
                 <label htmlFor={id} className='game-label'>{id}</label>
                 <Image
                   priority
@@ -81,7 +81,7 @@ export default function Home({ allPostsData, allGamesData }) {
                   alt=""
                   name={id}
                 />
-              </Link>
+              </a>
               <br />
               <small className={utilStyles.lightText}>
                 
