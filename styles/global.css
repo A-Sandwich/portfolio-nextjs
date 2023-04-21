@@ -1,0 +1,62 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Arimo, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+h1 {
+  font-family: Arimo;
+}
+a {
+  color: #f34e00;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.links a{
+  display: flex;
+  align-items: center;
+}
+
+.links a img{
+  display: inline;
+  margin-right: 3px;
+}
+
+
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.tile {
+  transition: all .3s ease-in-out;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.tile:hover { transform: scale(1.2); }
