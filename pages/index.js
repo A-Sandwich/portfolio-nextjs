@@ -63,7 +63,7 @@ export default function Home({ allPostsData, allGamesData }) {
             />itch.io</Link>
         </div>
         <p>Hi, I'm Kyle. I'm a Senior Software Engineer with a focus in Web development. When I'm not being paid, I'm a game developer. I also really enjoy running, cooking, trying to DIY, and playing video games!
-          You can contact me on <Link href="https://mastodon.gamedev.place/@A_Sandwich">Mastodon</Link>
+          You can contact me on <Link target="_blank" href="https://mastodon.gamedev.place/@A_Sandwich">Mastodon</Link>
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
@@ -78,7 +78,7 @@ export default function Home({ allPostsData, allGamesData }) {
                   src={`/games/${id}/profile.png`}
                   height={200}
                   width={200}
-                  alt=""
+                  alt={`Screenshot of the game "${id}"`}
                   name={id}
                 />
               </a>
