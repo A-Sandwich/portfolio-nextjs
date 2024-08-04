@@ -60,3 +60,39 @@ img {
 }
 
 .tile:hover { transform: scale(1.2); }
+
+
+.recent-track{
+  display: flex;
+  align-items: center;
+  p {
+    overflow-x: visible;
+    text-wrap: nowrap;
+  }
+}
+
+.track-information {
+  animation-play-state: running;
+  animation: marquee 15s linear infinite;
+}
+
+/* The animation */
+@keyframes marquee{
+  0%{transform: translateX(100%);}
+  100%{transform: translateX(-100%);}
+}
+
+/* media query to enable animation for only those who want it */
+@media (prefers-reduced-motion: no-preference) {
+  .moving-information{
+      animation: marquee 15s linear infinite;
+  }
+}
+
+.track-information-container {
+  overflow: hidden;
+}
+.track-information-container{
+  line-height: 0.125;
+  width: 100%;
+}
