@@ -8,13 +8,14 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
     "date-fns": "^2.29.3",
+    "eslint-config-next": "^14.2.5",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
-    "next": "latest",
+    "next": "^14.2.5",
     "node-rest-client": "^3.1.1",
     "package.json": "^2.0.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "remark": "^14.0.2",
     "remark-html": "^15.0.2"
   },
