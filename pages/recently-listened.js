@@ -1,4 +1,4 @@
-import { get_most_recent_track } from '../lib/music-tracking';
+/*import { get_most_recent_track } from '../lib/music-tracking';
   export default async function recent() {
     const data = await get_most_recent_track()
    
@@ -11,4 +11,4 @@ import { get_most_recent_track } from '../lib/music-tracking';
       </div>
     </div>
   </section>
-  }
+  }*/
