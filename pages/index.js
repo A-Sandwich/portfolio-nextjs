@@ -4,19 +4,16 @@ import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import { getSortedPostsData } from '../lib/posts';
 import { getSortedGameData } from '../lib/godot-games';
-import { get_most_recent_track } from '../lib/music-tracking';
 import Date from '../components/date';
 import Image from 'next/image';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   const allGamesData = getSortedGameData();
-  const most_recent_track = await get_most_recent_track();
   return {
     props: {
       allPostsData,
-      allGamesData,
-      most_recent_track
+      allGamesData
     },
   };
 }
@@ -35,16 +32,7 @@ export default function Home({ allPostsData, allGamesData, most_recent_track }) 
       </li>
     ))}
   </ul>
-</section>
-let most_recent_track_section = <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-  <h2 className={utilStyles.headingLg}>Most recently listend track</h2>
-  <div className='recent-track'>
-    <img src={most_recent_track.album_art_url} alt={`Album art for '${most_recent_track.album}'`}/>
-    <div className='track-information-container'>
-      <p className='track-information'>{`${most_recent_track.name} - ${most_recent_track.artist}`}</p>
-    </div>
-  </div>
-</section>
+</section>;
   return (
     <Layout home>
       <Head>
@@ -78,7 +66,6 @@ let most_recent_track_section = <section className={`${utilStyles.headingMd} ${u
           You can contact me on <Link target="_blank" href="https://mastodon.gamedev.place/@A_Sandwich">Mastodon</Link>
         </p>
       </section>
-
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Games</h2>
         <div className={"tiles"}>
@@ -103,7 +90,6 @@ let most_recent_track_section = <section className={`${utilStyles.headingMd} ${u
           ))}
         </div>
       </section>
-      {most_recent_track_section}
     </Layout>
   );
 }
