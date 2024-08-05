@@ -6,6 +6,7 @@ import { getSortedPostsData } from '../lib/posts';
 import { getSortedGameData } from '../lib/godot-games';
 import Date from '../components/date';
 import Image from 'next/image';
+import RecentTrack from './components/recent-track.jsx';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -90,6 +91,7 @@ export default function Home({ allPostsData, allGamesData, most_recent_track }) 
           ))}
         </div>
       </section>
+      <RecentTrack />
     </Layout>
   );
 }
