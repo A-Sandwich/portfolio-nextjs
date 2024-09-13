@@ -28,6 +28,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 NEXT_PUBLIC_SUPABASE_URL=https://yaklrbofyozcrlmevyfo.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlha2xyYm9meW96Y3JsbWV2eWZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEzMDA5ODAsImV4cCI6MjAzNjg3Njk4MH0.BHU4FG9RUl2LsRGsLXNNC56HGnK5e5-6fvuuvZ3CDKM
