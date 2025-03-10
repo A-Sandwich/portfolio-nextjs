@@ -22,6 +22,7 @@ export async function getStaticProps() {
 export default function Home({ allPostsData, allGamesData, most_recent_track }) {
   let blogSection = <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
   <h2 className={utilStyles.headingLg}>Blog</h2>
+  <p></p>
   <ul className={utilStyles.list}>
     {allPostsData.map(({ id, date, title }) => (
       <li className={utilStyles.listItem} key={id}>
@@ -63,7 +64,7 @@ export default function Home({ allPostsData, allGamesData, most_recent_track }) 
               alt="itch.io logo"
             />itch.io</Link>
         </div>
-        <p>Hi, I'm Kyle. I'm a Staff Software Engineer with a focus in Web development. When I'm not being paid, I'm a game developer. I also really enjoy running, cooking, trying to DIY, and playing video games!
+        <p>👋 Hi, I'm Kyle, a real human and Staff Software Engineer.🧑‍💻 I find myself solving, and sometimes creating problems, but seeing "all unit tests passed🟢" keeps me going. I sometimes play and make video games.🕹️ I also collect hobbies, so please tell me about yours!
           You can contact me on <Link target="_blank" href="https://mastodon.gamedev.place/@A_Sandwich">Mastodon</Link>
         </p>
       </section>
@@ -85,7 +86,6 @@ export default function Home({ allPostsData, allGamesData, most_recent_track }) 
               </a>
               <br />
               <small className={utilStyles.lightText}>
-                
               </small>
             </div>
           ))}

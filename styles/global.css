@@ -1,5 +1,15 @@
-html,
+/*html,
 body {
+  padding: 0;
+  margin: 0;
+  font-family: Arimo, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+  height:100%;
+}*/
+
+#main-content {
   padding: 0;
   margin: 0;
   font-family: Arimo, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
@@ -95,4 +105,30 @@ img {
 .track-information-container{
   line-height: 0.125;
   width: 100%;
+}
+
+#genuine-pixels {
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  right: 1rem;
+}
+
+#bottom-text {
+  display: flex;
+  flex-direction: column;
+}
+
+#go-away {
+  position: fixed;
+  bottom: -5rem;
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+html, body {
+  height:100%;
 }
