@@ -3,6 +3,12 @@
     padding: 0 1rem;
     margin: 3rem auto 6rem;
   }
+
+  .containerWide {
+    max-width: 72rem;
+    padding: 0 2rem;
+    margin: 3rem auto 6rem;
+  }
   
   .header {
     display: flex;

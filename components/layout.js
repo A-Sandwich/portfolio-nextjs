@@ -7,9 +7,9 @@ import Link from 'next/link';
 const name = 'Kyle Burkholder';
 export const siteTitle = 'Kyle Burkholder';
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home, wide }) {
   return (
-    <div className={styles.container}>
+    <div className={wide ? styles.containerWide : styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -42,7 +42,7 @@ export default function Layout({ children, home }) {
             <Link href="/">
               <Image
                 priority
-                src="/images/profile.png"
+                src="/images/profile.jpg"
                 className={utilStyles.borderCircle}
                 height={108}
                 width={108}
