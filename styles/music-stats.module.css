@@ -202,6 +202,25 @@
   }
 }
 
+.funFactsWide {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 700px) {
+  .funFactsWide {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 450px) {
+  .funFactsWide {
+    grid-template-columns: 1fr;
+  }
+}
+
 .factCard {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
