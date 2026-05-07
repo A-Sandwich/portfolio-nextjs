@@ -41,8 +41,9 @@ function computePeriodStats(tracks) {
         .map(([name, count]) => ({ name, count }));
 
     const hourCounts = new Array(24).fill(0);
+    const hourFmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: 'America/New_York' });
     tracks.forEach(t => {
-        hourCounts[new Date(t.date * 1000).getHours()]++;
+        hourCounts[parseInt(hourFmt.format(new Date(t.date * 1000)), 10) % 24]++;
     });
 
     return { totalPlays, uniqueArtists, uniqueAlbums, topArtists, topSongs, topAlbums, hourCounts };
