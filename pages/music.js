@@ -48,11 +48,11 @@ function computePeriodStats(tracks) {
     return { totalPlays, uniqueArtists, uniqueAlbums, topArtists, topSongs, topAlbums, hourCounts };
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const tracks = await get_all_tracks();
 
     if (!tracks || tracks.length === 0) {
-        return { props: { stats: null } };
+        return { props: { stats: null }, revalidate: 3600 };
     }
 
     const epochNow = Math.floor(Date.now() / 1000);
@@ -96,6 +96,7 @@ export async function getServerSideProps() {
                 daysSince,
             },
         },
+        revalidate: 3600,
     };
 }
 
