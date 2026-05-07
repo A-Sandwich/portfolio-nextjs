@@ -64,6 +64,19 @@ export async function getStaticProps() {
         sevenDays: computePeriodStats(tracks.filter(t => t.date >= epochNow - 7 * 24 * 3600)),
     };
 
+    // Plays per year — all-time
+    const yearCounts = {};
+    tracks.forEach(t => {
+        const year = String(new Date(t.date * 1000).getFullYear());
+        yearCounts[year] = (yearCounts[year] || 0) + 1;
+    });
+    const firstYear = new Date(tracks[0].date * 1000).getFullYear();
+    const lastYear = new Date().getFullYear();
+    const yearData = [];
+    for (let y = firstYear; y <= lastYear; y++) {
+        yearData.push({ label: String(y), count: yearCounts[y] || 0 });
+    }
+
     // Last 12 months — always all-time
     const now = new Date();
     const months = [];
@@ -88,6 +101,7 @@ export async function getStaticProps() {
         props: {
             stats: {
                 periodData,
+                yearData,
                 monthData,
                 firstTrack: {
                     name: firstTrack.name,
@@ -214,6 +228,30 @@ export default function MusicStats({ stats }) {
                     ))}
                 </div>
             </section>
+
+            {period === 'all' && (() => {
+                const maxYear = Math.max(...stats.yearData.map(y => y.count), 1);
+                return (
+                    <section>
+                        <h2 className={utilStyles.headingLg}>Plays per Year</h2>
+                        <div className={styles.monthChart}>
+                            {stats.yearData.map((y, i) => (
+                                <div
+                                    key={i}
+                                    className={styles.monthBar}
+                                    style={{ height: `${(y.count / maxYear) * 100}%` }}
+                                    title={`${y.label}: ${y.count.toLocaleString()} plays`}
+                                />
+                            ))}
+                        </div>
+                        <div className={styles.monthLabels}>
+                            {stats.yearData.map((y, i) => (
+                                <div key={i} className={styles.monthLabel}>{y.label}</div>
+                            ))}
+                        </div>
+                    </section>
+                );
+            })()}
 
             <section>
                 <h2 className={utilStyles.headingLg}>Plays per Month</h2>
