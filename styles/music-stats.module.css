@@ -1,5 +1,6 @@
 .periodToggle {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin: 1.5rem 0 0.5rem;
 }
@@ -12,6 +13,8 @@
   cursor: pointer;
   font-family: inherit;
   font-size: 0.9rem;
+  font-weight: normal;
+  line-height: 1.2;
   color: inherit;
   transition: border-color 0.15s, color 0.15s;
 }
@@ -244,4 +247,13 @@
   font-size: 0.85rem;
   color: #666;
   margin-top: 0.15rem;
+}
+
+@media (max-width: 800px) {
+  .monthChart,
+  .monthLabels,
+  .hourChart,
+  .hourLabels {
+    gap: 1px;
+  }
 }

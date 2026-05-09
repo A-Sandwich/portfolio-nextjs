@@ -11,6 +11,7 @@ export default function Layout({ children, home, wide }) {
   return (
     <div className={wide ? styles.containerWide : styles.container}>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"

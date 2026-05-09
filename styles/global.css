@@ -117,6 +117,7 @@ img {
 #bottom-text {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 }
 
 #go-away {

@@ -9,6 +9,12 @@
     padding: 0 2rem;
     margin: 3rem auto 6rem;
   }
+
+  @media (max-width: 600px) {
+    .containerWide {
+      padding: 0 1rem;
+    }
+  }
   
   .header {
     display: flex;

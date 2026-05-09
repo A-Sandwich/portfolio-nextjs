@@ -396,7 +396,7 @@ export default function MusicStats({ stats }) {
                     const maxDisc = Math.max(...stats.discoveryTrendData.map(d => d.count), 1);
                     return (
                         <>
-                            <div className={styles.monthChart}>
+                            <div className={styles.monthChart} style={{ gap: '1px' }}>
                                 {stats.discoveryTrendData.map((d, i) => (
                                     <div
                                         key={i}
@@ -406,7 +406,7 @@ export default function MusicStats({ stats }) {
                                     />
                                 ))}
                             </div>
-                            <div className={styles.monthLabels}>
+                            <div className={styles.monthLabels} style={{ gap: '1px' }}>
                                 {stats.discoveryTrendData.map((d, i) => (
                                     <div key={i} className={styles.monthLabel}>{d.label}</div>
                                 ))}
