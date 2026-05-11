@@ -92,6 +92,13 @@ export default function Home({ allPostsData, allGamesData, most_recent_track }) 
         </div>
       </section>
       <RecentTrack />
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Stats</h2>
+        <ul className={utilStyles.list}>
+          <li className={utilStyles.listItem}><Link href="/music">Listening Stats</Link></li>
+          <li className={utilStyles.listItem}><Link href="/chess">Chess Stats</Link></li>
+        </ul>
+      </section>
     </Layout>
   );
 }
