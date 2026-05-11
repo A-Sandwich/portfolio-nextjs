@@ -13,6 +13,7 @@
   @media (max-width: 600px) {
     .containerWide {
       padding: 0 1rem;
+      overflow-x: hidden;
     }
   }
   

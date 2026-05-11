@@ -141,10 +141,12 @@
   gap: 4px;
   height: 80px;
   margin: 1rem 0 0;
+  overflow: hidden;
 }
 
 .monthBar {
   flex: 1;
+  min-width: 0;
   background: #f34e00;
   border-radius: 2px 2px 0 0;
   min-height: 2px;
@@ -163,6 +165,7 @@
 
 .monthLabel {
   flex: 1;
+  min-width: 0;
   text-align: center;
   font-size: 0.65rem;
   color: #999;
@@ -177,10 +180,12 @@
   gap: 2px;
   height: 60px;
   margin: 1rem 0 0;
+  overflow: hidden;
 }
 
 .hourBar {
   flex: 1;
+  min-width: 0;
   background: #f34e00;
   border-radius: 1px 1px 0 0;
   min-height: 2px;
@@ -199,6 +204,7 @@
 
 .hourLabel {
   flex: 1;
+  min-width: 0;
   text-align: center;
   font-size: 0.6rem;
   color: #999;
