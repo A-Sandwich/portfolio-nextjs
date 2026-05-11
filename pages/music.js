@@ -200,6 +200,10 @@ export async function getStaticProps() {
                 longestStreak,
                 repeatRate,
                 discoveryTrendData,
+                lastUpdated: new Date().toLocaleString('en-US', {
+                    month: 'long', day: 'numeric', year: 'numeric',
+                    hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York', timeZoneName: 'short',
+                }),
             },
         },
         revalidate: 3600,
@@ -256,6 +260,7 @@ export default function MusicStats({ stats }) {
 
             <section className={utilStyles.headingMd}>
                 <h1 className={utilStyles.headingXl}>Listening Stats</h1>
+                <p className={styles.lastUpdated}>Updated {stats.lastUpdated}</p>
             </section>
 
             <div className={styles.periodToggle}>

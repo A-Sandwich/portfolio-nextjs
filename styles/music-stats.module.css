@@ -1,3 +1,9 @@
+.lastUpdated {
+  font-size: 0.85rem;
+  color: #999;
+  margin: -0.5rem 0 0;
+}
+
 .periodToggle {
   display: flex;
   flex-wrap: wrap;
