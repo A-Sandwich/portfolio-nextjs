@@ -17,9 +17,11 @@ function computePeriodStats(tracks) {
         .slice(0, 10)
         .map(([name, count]) => ({ name, count }));
 
+    const EXCLUDED_SONGS = new Set(['Drive Home|||Bay Faction']);
     const songCounts = {};
     tracks.forEach(t => {
         const key = `${t.name}|||${t.artist}`;
+        if (EXCLUDED_SONGS.has(key)) return;
         songCounts[key] = (songCounts[key] || 0) + 1;
     });
     const topSongs = Object.entries(songCounts)
