@@ -416,47 +416,10 @@
 
 /* Rating history chart */
 
-.ratingChart {
-  display: flex;
-  align-items: flex-end;
-  gap: 1px;
-  height: 100px;
-  margin: 2rem 0 0;
-  overflow: visible;
-}
-
-.ratingBarWrap {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-}
-
-.ratingBar {
-  width: 100%;
-  background: #f34e00;
-  border-radius: 2px 2px 0 0;
-  min-height: 2px;
-  position: relative;
-  transition: opacity 0.15s;
-}
-
-.ratingBar:hover {
-  opacity: 0.7;
-}
-
-.ratingBarLabel {
-  position: absolute;
-  bottom: calc(100% + 3px);
-  left: 50%;
-  writing-mode: vertical-rl;
-  transform: translateX(-50%);
-  font-size: 0.5rem;
-  color: #4b5563;
-  white-space: nowrap;
-  pointer-events: none;
-  line-height: 1;
+.ratingNoData {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0.75rem 0;
 }
 
 /* Fun facts */

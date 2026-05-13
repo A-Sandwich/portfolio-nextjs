@@ -178,6 +178,108 @@ function WdlBar({ wins, draws, losses, total }) {
     );
 }
 
+function RatingLineChart({ ratingData }) {
+    if (!ratingData || ratingData.length === 0) return <p>No games in this period.</p>;
+    if (ratingData.length === 1) {
+        return <p className={styles.ratingNoData}>Only one data point ({ratingData[0].rating}) — play more games to see a trend.</p>;
+    }
+
+    const W = 600, H = 160;
+    const pad = { top: 20, right: 10, bottom: 28, left: 42 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    const ratings = ratingData.map(r => r.rating);
+    const minR = Math.min(...ratings);
+    const maxR = Math.max(...ratings);
+    const rRange = maxR - minR || 40;
+    const displayMin = minR - Math.ceil(rRange * 0.1);
+    const displayMax = maxR + Math.ceil(rRange * 0.1);
+    const displayRange = displayMax - displayMin;
+    const n = ratingData.length;
+
+    const px = i => pad.left + (i / Math.max(n - 1, 1)) * plotW;
+    const py = rating => pad.top + (1 - (rating - displayMin) / displayRange) * plotH;
+
+    const linePoints = ratingData.map((r, i) => `${px(i).toFixed(1)},${py(r.rating).toFixed(1)}`).join(' ');
+    const fillPoints = [
+        ...ratingData.map((r, i) => `${px(i).toFixed(1)},${py(r.rating).toFixed(1)}`),
+        `${px(n - 1).toFixed(1)},${(pad.top + plotH).toFixed(1)}`,
+        `${px(0).toFixed(1)},${(pad.top + plotH).toFixed(1)}`,
+    ].join(' ');
+
+    const yTickCount = 4;
+    const yTicks = Array.from({ length: yTickCount + 1 }, (_, i) => {
+        const rating = displayMin + (i / yTickCount) * displayRange;
+        return { rating: Math.round(rating), y: py(rating) };
+    });
+
+    const isYearMonth = /^\d{4}-\d{2}$/.test(ratingData[0].label);
+    const maxXLabels = 10;
+    const xStep = Math.ceil(n / maxXLabels);
+
+    const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const tooltipLabel = label => {
+        if (/^\d{4}-\d{2}$/.test(label)) {
+            const [year, month] = label.split('-');
+            return `${MONTH_NAMES[parseInt(month, 10) - 1]} ${year}`;
+        }
+        return label;
+    };
+
+    return (
+        <svg
+            viewBox={`0 0 ${W} ${H}`}
+            style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible', marginTop: '1rem' }}
+            aria-label="Rating history line chart"
+        >
+            <defs>
+                <linearGradient id="ratingLineFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#f34e00" stopOpacity="0.2" />
+                    <stop offset="100%" stopColor="#f34e00" stopOpacity="0.02" />
+                </linearGradient>
+            </defs>
+
+            {yTicks.map((t, i) => (
+                <g key={i}>
+                    <line x1={pad.left} y1={t.y.toFixed(1)} x2={W - pad.right} y2={t.y.toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />
+                    <text x={pad.left - 5} y={t.y.toFixed(1)} textAnchor="end" dominantBaseline="middle" fontSize="10" fill="#9ca3af">{t.rating}</text>
+                </g>
+            ))}
+
+            <polygon points={fillPoints} fill="url(#ratingLineFill)" />
+
+            <polyline points={linePoints} fill="none" stroke="#f34e00" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+
+            {n <= 60 && ratingData.map((r, i) => (
+                <circle
+                    key={i}
+                    cx={px(i).toFixed(1)}
+                    cy={py(r.rating).toFixed(1)}
+                    r="3"
+                    fill="#f34e00"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    aria-label={`${tooltipLabel(r.label)}: ${r.rating}`}
+                />
+            ))}
+
+            {ratingData.map((r, i) => {
+                if (isYearMonth) {
+                    if (!r.label.endsWith('-01') && i !== 0) return null;
+                    return (
+                        <text key={i} x={px(i).toFixed(1)} y={H - 5} textAnchor="middle" fontSize="10" fill="#9ca3af">{r.label.slice(0, 4)}</text>
+                    );
+                }
+                if (i % xStep !== 0) return null;
+                return (
+                    <text key={i} x={px(i).toFixed(1)} y={H - 5} textAnchor="middle" fontSize="10" fill="#9ca3af">{r.label}</text>
+                );
+            })}
+        </svg>
+    );
+}
+
 function OpeningList({ openings }) {
     if (!openings.length) return <p>No data for this period.</p>;
     const maxCount = openings[0].count;
@@ -269,6 +371,11 @@ export default function ChessStats({ stats }) {
             <section>
                 <h2 className={utilStyles.headingLg}>Results</h2>
                 <WdlBar wins={pd.wins} draws={pd.draws} losses={pd.losses} total={pd.total} />
+            </section>
+
+            <section>
+                <h2 className={utilStyles.headingLg}>Rating History</h2>
+                <RatingLineChart ratingData={pd.ratingData} />
             </section>
 
             {(pd.winMethods.length > 0 || pd.lossMethods.length > 0) && (
@@ -427,45 +534,17 @@ export default function ChessStats({ stats }) {
                 );
             })()}
 
-            <section>
-                <h2 className={utilStyles.headingLg}>Rating History</h2>
-                {pd.ratingData.length > 0 ? (() => {
-                    const minR = Math.min(...pd.ratingData.map(r => r.rating));
-                    const maxR = Math.max(...pd.ratingData.map(r => r.rating));
-                    const rRange = maxR - minR || 1;
-                    return (
-                        <>
-                            <div className={styles.ratingChart}>
-                                {pd.ratingData.map((r, i) => (
-                                    <div key={i} className={styles.ratingBarWrap}>
-                                        <div
-                                            className={styles.ratingBar}
-                                            style={{ height: `${10 + ((r.rating - minR) / rRange) * 90}%` }}
-                                        >
-                                            <span className={styles.ratingBarLabel}>{r.rating}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className={styles.monthLabels} style={{ gap: '1px' }}>
-                                {pd.ratingData.map((r, i) => (
-                                    <div key={i} className={styles.monthLabel}>{r.label}</div>
-                                ))}
-                            </div>
-                        </>
-                    );
-                })() : <p>No games in this period.</p>}
-            </section>
-
             {pd.deltaData.length > 0 && (() => {
                 const maxAbs = Math.max(...pd.deltaData.map(d => Math.abs(d.delta)), 1);
-                const fmtDate = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                const periodDays = { year: 365, ninetyDays: 90, thirtyDays: 30, sevenDays: 7 };
-                const days = periodDays[period];
-                const now = new Date();
-                const rangeLabel = days
-                    ? `${fmtDate(new Date(now - days * 86400000))} – ${fmtDate(now)}`
-                    : `${pd.deltaData[0].label} – ${pd.deltaData[pd.deltaData.length - 1].label}`;
+                const fmtDeltaLabel = label => {
+                    if (/^\d{4}-\d{2}$/.test(label)) {
+                        const [year, month] = label.split('-');
+                        const names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                        return `${names[parseInt(month, 10) - 1]} ${year}`;
+                    }
+                    return label;
+                };
+                const rangeLabel = `${fmtDeltaLabel(pd.deltaData[0].label)} – ${fmtDeltaLabel(pd.deltaData[pd.deltaData.length - 1].label)}`;
                 return (
                     <section>
                         <h2 className={utilStyles.headingLg}>{DELTA_LABEL[period]} Rating Delta</h2>
